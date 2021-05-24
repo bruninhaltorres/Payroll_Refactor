@@ -54,8 +54,8 @@ public class EmployeeMenu {
         employees.printEmployees(listEmployees);
     }
 
-    public void createEmployee(ArrayList<Employees> listEmployees, ArrayList<Syndicate> listSyndicate, Payment payment) {
-
+    public Employees createEmployee(ArrayList<Employees> listEmployees, ArrayList<Syndicate> listSyndicate, Payment payment) {
+        
         System.out.println("Nome do empregado:");
         String name = input.nextLine();
 
@@ -84,5 +84,6 @@ public class EmployeeMenu {
         }
         payment.payment_method(employees);
         addEmployee(employees, listEmployees, listSyndicate);
+        return employees;
     }
 }

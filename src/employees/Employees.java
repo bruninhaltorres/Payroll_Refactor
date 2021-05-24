@@ -68,7 +68,6 @@ public abstract class Employees {
     public void printEmployees(ArrayList<Employees> employeeList) {
         System.out.println("Lista de todos os empregados:\n\n");
         for(Employees employee : employeeList){
-            System.out.println("Empregado " + employee.getId() + " - ");
             employee.employeeInfos();
             System.out.println("\n\n");
         }

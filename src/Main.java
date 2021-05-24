@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 public class Main {
 
-    public static void actions(){
-        System.out.println("Ações:"); // printar aos poucos?
+    public static int actions(Scanner input){
+        System.out.println("Ações:");
         System.out.println("1 - Adicionar empregado"); 
         System.out.println("2 - Remoção empregado"); 
         System.out.println("3 - Lançar um cartão"); 
@@ -23,31 +23,37 @@ public class Main {
         System.out.println("9 - Agendar pagamento");
         System.out.println("10 - Criar novas agendas");
         System.out.println("0 - Encerrar");
+        int comando = input.nextInt();
+        return comando;
     }
 
-    public static void invalid() {
+    public static int invalid(Scanner input) {
         System.out.println("Acão inválida! Tente novamente.");
+        int comando = actions(input);
+        return comando;
     }
     
     public static void main(String[] args) {
         System.out.println("Esse é o sistema para folha de pagamento.");    
         Scanner input = new Scanner(System.in);
-        actions();
-
-        int comando = input.nextInt();
+        
+        int comando = actions(input);
+        int control = 0;
 
         ArrayList<Syndicate> listSyndicate = new ArrayList<Syndicate>();
         ArrayList<Employees> listEmployees = new ArrayList<Employees>(); 
 
         EmployeeMenu employeeMenu = new EmployeeMenu();
         Payment payment = new Payment();
+        Employees employee = null;
         
         Payroll payroll = new Payroll();
 
         while (comando != 0){
             if (comando == 1) {
                 System.out.println("Adicionando empregado...");
-                employeeMenu.createEmployee(listEmployees, listSyndicate, payment);
+                
+                employee = employeeMenu.createEmployee(listEmployees, listSyndicate, payment);
                 System.out.println("Empregado adicionado com sucesso.");
 
             } else if (comando == 2) {
@@ -69,7 +75,7 @@ public class Main {
                     }
                 }
                 listSyndicate.remove(syndicateRemove);
-
+                employee.printEmployees(listEmployees);
                 System.out.println("Empregado removido!"); 
 
             } else if (comando == 3) { // adicionando cartão de ponto
@@ -243,14 +249,14 @@ public class Main {
                             }
                         } else {
                             valid = 1;
-                            invalid();
+                            invalid(input);
                             change = input.nextInt();
                         }
                     }
                 }
             } else if (comando == 7) {
                 Payroll.payEmployees(listEmployees, payroll);
-//                System.out.println("Pagamentos efetuados com sucesso!");
+                System.out.println("Pagamentos efetuados com sucesso!");
             } else if (comando == 8) {
                 //
                 System.out.println("Ação desfeita. (undo)");
@@ -259,15 +265,19 @@ public class Main {
                 //
             } else if (comando == 10) {
                 //
-            } else if (comando != 11 && comando != 0) {
-                invalid();
+            } else {
+                if (comando == 0) {
+                    break;
+                } else {
+                    control = 1; // para marcar que o comando já foi pego.
+                    comando = invalid(input);
+                }
             }
-            System.out.println("11 - Ver as opções novamente\n0 - Encerrar");
-            comando = input.nextInt();
-            if (comando == 11) {
-                actions();
+            if (control == 0){ // se ainda não foi pego o proximo, pegue!
+                comando = actions(input);
             }
-            input.nextLine();
+            control = 0;
+            //input.nextLine();
         }
         input.close();
     }
