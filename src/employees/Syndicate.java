@@ -24,7 +24,7 @@ public class Syndicate{
         this.feeSyndicate = feeSyndicate;
     }
     
-    public int getIdEmployee() {
+    public int getId() {
         return idEmployee;
     }
     

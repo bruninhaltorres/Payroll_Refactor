@@ -1,5 +1,7 @@
 package src.payment;
 
+import src.employees.Employees;
+
 public class Deposit extends Payment {
     private int account;
     private int agency;
@@ -24,10 +26,11 @@ public class Deposit extends Payment {
         this.account = account;
     }
 
-    public Deposit(int idEmployee, int account, int agency, int bank) {
-        this.setIdEmployee(idEmployee);
+    public Deposit(Employees employees, int account, int agency, int bank, String method) {
+        this.setIdEmployee(employees.getId());
         this.setAccount(account);
         this.setAgency(agency);
         this.setBank(bank);
+        employees.setMethodPayment(method);
     }
 }

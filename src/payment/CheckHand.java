@@ -1,8 +1,10 @@
 package src.payment;
 
-public class CheckHand extends Payment {
-    private String nameEmployee;
+import src.employees.Employees;
 
+public class CheckHand extends Payment{
+    private String nameEmployee;
+    
     public String getNameEmployee() {
         return nameEmployee;
     }
@@ -10,8 +12,9 @@ public class CheckHand extends Payment {
         this.nameEmployee = nameEmployee;
     }
 
-    public CheckHand(int id, String nameEmployee) {
-        setIdEmployee(id);
-        setNameEmployee(nameEmployee);
+    public CheckHand(Employees employees, String method) {
+        setIdEmployee(employees.getId());
+        setNameEmployee(employees.getName());
+        employees.setMethodPayment(method);
     }
 }

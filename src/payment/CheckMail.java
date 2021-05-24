@@ -1,26 +1,21 @@
 package src.payment;
 
+import src.employees.Employees;
+
 public class CheckMail extends Payment {
-    private String recipient; // Destinatario
-    private String sender; // Remetente
+    private String nameEmployee; // Destinatario
 
-
-    public String getSender() {
-        return sender;
+    public String getNameEmployee() {
+        return nameEmployee;
     }
-    public void setSender(String sender) {
-        this.sender = sender;
-    }
-    public String getRecipient() {
-        return recipient;
-    }
-    public void setRecipient(String recipient) {
-        this.recipient = recipient;
+    public void setNameEmployee(String name) {
+        this.nameEmployee = name;
     }
 
-    public CheckMail(int id, String recipient, String sender){
-        setIdEmployee(id);
-        setRecipient(recipient);
-        setSender(sender);
+    public CheckMail(Employees employees, String adress, String method){
+        setIdEmployee(employees.getId());
+        setNameEmployee(employees.getName());
+        employees.setMethodPayment(method);
+        employees.setAdress(adress);
     }
 }

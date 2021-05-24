@@ -7,8 +7,8 @@ import src.TimeCard;
 public class Hourly extends Employees {
     private ArrayList<TimeCard> listTimeCards = new ArrayList<TimeCard>(); // um horista tem varios cartões de ponto
 
-    public Hourly(String name, String adress, String method, int id) {
-        super(name, adress, method, id);// chama o construtor da classe pai.
+    public Hourly(String name, String adress, int id) {
+        super(name, adress, id);// chama o construtor da classe pai.
     }
 
     public void getHoursWeekly(TimeCard timeCard){
@@ -28,6 +28,7 @@ public class Hourly extends Employees {
         
         TimeCard timeCard = new TimeCard(in, out, date);
         listTimeCards.add(timeCard);
+        
         for(TimeCard timecard : listTimeCards){
             System.out.println("Data adicionada: " + timecard.getDate());
         }

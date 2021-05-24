@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Main",
+            "request": "launch",
+            "mainClass": "src.Main",
+            "projectName": "Payroll_Refactor_814def82"
+        },
+        {
+            "type": "java",
             "name": "Launch ConversionDate",
             "request": "launch",
             "mainClass": "ConversionDate",

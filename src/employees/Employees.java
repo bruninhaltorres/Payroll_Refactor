@@ -15,13 +15,16 @@ public class Employees {
     private String methodPayment;
     private int id;
 
-
     public String getName(){
         return name;
     }
 
     public void setName(String newName) {
         this.name = newName;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getAdress(){
@@ -36,7 +39,10 @@ public class Employees {
         return methodPayment;
     }
 
-
+    public void setMethodPayment (String methodPayment){
+        this.methodPayment = methodPayment;
+    }
+    
     public int getId(){
         return id;
     }
@@ -45,18 +51,18 @@ public class Employees {
         this.id = id;
     }
 
-    public Employees(String name, String adress, String method, int id) { // contrutor 2. Pode ter vários e o que vai mudar de um pro outro são os parâmetros.
+    public Employees(String name, String adress, int id) { 
         this.setName(name);
         this.setAdress(adress);
         this.id = id;
-        this.methodPayment = method;
     }
 
     public void employeeInfos(){
         System.out.println("Name: " + this.getName());
         System.out.println("ID: " + this.getId());
         System.out.println("Adress: " + getAdress());
-        System.out.println("Employee Type: " + getMethodPayment());
+        System.out.println("Type Payment: " + getMethodPayment());
+        System.out.println("Type: " + getClass());
         //return "Payment Day: " + getPaymentDay();
     }
 
@@ -67,52 +73,5 @@ public class Employees {
             employee.employeeInfos();
             System.out.println("\n\n");
         }
-    }
-
-    public void payment_method(int method, int id) {
-        Scanner input = new Scanner(System.in);
-        if (method == 1) {
-            this.methodPayment = "hand";
-            CheckHand check = new CheckHand(this.id, this.name);
-        } else if (method ==  2) {
-            this.methodPayment = "deposit";
-            System.out.println("Qual o nº da conta?");
-            int account = input.nextInt();
-            System.out.println("Número da agencia:");
-            int agency = input.nextInt();
-            System.out.println("Numero do banco:");
-            int bank = input.nextInt();
-            Deposit deposit = new Deposit(this.id, account, agency, bank);
-        } else if (method == 3) {
-            this.methodPayment = "mail";
-            System.out.println("Nome do remetente:");
-            String sender = input.next();
-            CheckMail ckeckM = new CheckMail(this.id, this.name, sender);
-        } else {
-            System.out.println("Metodo de pagamento inválido!\n");
-        }
-    }
-
-    public void add(){
-        // ---- NOME ----
-        Scanner input = new Scanner(System.in);
-        System.out.println("Insira o nome do empregado:");
-        this.name = input.nextLine();
-    
-        System.out.println("Insira o endereco do empregado:");
-        this.adress = input.nextLine();
-    
-        // ---- FORMA PAGAMENTO ----
-        System.out.println("Qual a forma de pagamento?");
-        System.out.println("1 - Em mãos");
-        System.out.println("2 - Depósito bancário");
-        System.out.println("3 - Cheque pelos correios");
-        int method = input.nextInt();
-        payment_method(method, id);
-        // ---- TIPO EMPREGADO ----
-        
-        System.out.println("Empregado adicionado com sucesso!");
-        System.out.println(this.name);
-    //System.out.println(id);
     }
 }
