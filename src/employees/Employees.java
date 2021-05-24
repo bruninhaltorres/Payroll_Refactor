@@ -9,12 +9,15 @@ import src.payment.CheckMail;
 import src.payment.Deposit;
 import src.payment.Payroll;
 
-public class Employees {
+public abstract class Employees {
     private String name;
     private String adress;
     private String methodPayment;
     private int id;
 
+    public abstract void addTimeCard();
+    public abstract void addSale();
+    
     public String getName(){
         return name;
     }
@@ -45,10 +48,6 @@ public class Employees {
     
     public int getId(){
         return id;
-    }
-
-    public Employees(int id) {
-        this.id = id;
     }
 
     public Employees(String name, String adress, int id) { 

@@ -1,7 +1,5 @@
 package src;
 
-import src.employees.Employees;
-import src.employees.Syndicate;
 import src.employees.*;
 import src.payment.*;
 
@@ -39,41 +37,6 @@ public class EmployeeMenu {
         return id;
     }
 
-    public Employees createEmployee(ArrayList<Employees> employeeList, Payment payment){
-
-        int idEmployee = generateId(employeeList);
-        Employees employees = new Employees(idEmployee);
-
-        System.out.println("Nome do empregado:");
-        employees.setName(input.nextLine());
-
-        employees.setId(idEmployee);
-
-        System.out.println("Endereco do empregado:");
-        employees.setAdress(input.nextLine()); 
-
-        payment.payment_method(employees);
-
-        System.out.println("Empregado adicionado com sucesso!");
-
-        return employees;
-    }
-
-    public void defineType(Employees employees){
-        System.out.println("O empregado é...\n1 - Horista\n2 - Comissionado\n3 - Assalariado");
-        int type = input.nextInt();
-        
-        if (type == 1) { // horista
-            Employees hourly = new Hourly(employees.getName(), employees.getAdress(), employees.getId());                    
-        } else if (type == 2) { // comissionado
-            double valueComissioned;
-            System.out.println("Valor da comissão:");
-            valueComissioned = input.nextDouble();
-            Employees commissioned = new Commissioned(employees.getName(), employees.getAdress(), employees.getId(), valueComissioned);
-        } 
-        // se for assalariado não acrescenta nada além do que já tem.
-    }
-
     public void isSyndicate(ArrayList<Syndicate> listSyndicate, Employees employees) {
         System.out.println("Ele irá fazer parte do Sindicato?\n1 - Sim\n2 - Não");
         int isSyndicate = input.nextInt();
@@ -85,11 +48,41 @@ public class EmployeeMenu {
         }
     }
 
-    public void addEmployee(ArrayList<Employees> listEmployees, ArrayList<Syndicate> listSyndicate, Payment payment) {
-        Employees employees = createEmployee(listEmployees, payment);
-        defineType(employees);
+    public void addEmployee(Employees employees, ArrayList<Employees> listEmployees, ArrayList<Syndicate> listSyndicate) {
         listEmployees.add(employees);
         isSyndicate(listSyndicate, employees);
         employees.printEmployees(listEmployees);
+    }
+
+    public void createEmployee(ArrayList<Employees> listEmployees, ArrayList<Syndicate> listSyndicate, Payment payment) {
+
+        System.out.println("Nome do empregado:");
+        String name = input.nextLine();
+
+        System.out.println("Endereco do empregado:");
+        String adress = input.nextLine(); 
+
+        System.out.println("O empregado é...\n1 - Horista\n2 - Comissionado\n3 - Assalariado");
+        int type = input.nextInt();
+
+        int idEmployee = generateId(listEmployees);
+
+        Employees employees = null;
+
+        if (type == 1) { // horista
+            employees = new Hourly(name, adress, idEmployee); 
+        } else if (type == 2) { // comissionado
+            double valueComissioned;
+            System.out.println("Valor da comissão:");
+            valueComissioned = input.nextDouble();
+            employees = new Commissioned(name, adress, idEmployee, valueComissioned);
+        } else {
+            double salary;
+            System.out.println("Salário:");
+            salary = input.nextDouble();
+            employees = new Assalaried(name, adress, idEmployee, salary);
+        }
+        payment.payment_method(employees);
+        addEmployee(employees, listEmployees, listSyndicate);
     }
 }

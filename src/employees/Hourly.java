@@ -7,6 +7,8 @@ import src.TimeCard;
 public class Hourly extends Employees {
     private ArrayList<TimeCard> listTimeCards = new ArrayList<TimeCard>(); // um horista tem varios cartões de ponto
 
+    public void addSale() {}
+
     public Hourly(String name, String adress, int id) {
         super(name, adress, id);// chama o construtor da classe pai.
     }

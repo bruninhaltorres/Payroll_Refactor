@@ -47,7 +47,8 @@ public class Main {
         while (comando != 0){
             if (comando == 1) {
                 System.out.println("Adicionando empregado...");
-                employeeMenu.addEmployee(listEmployees, listSyndicate, payment);
+                employeeMenu.createEmployee(listEmployees, listSyndicate, payment);
+                System.out.println("Empregado adicionado com sucesso.");
 
             } else if (comando == 2) {
                 System.out.println("Qual o identificador do empregado que será removido?");
@@ -77,8 +78,8 @@ public class Main {
                 
                 for(Employees employees : listEmployees){
                     if(employees.getId() == idTimeCard){
-                        if(employees.getClass() == Hourly.class){
-                            ((Hourly)employees).addTimeCard();
+                        if(employees instanceof Hourly){
+                            employees.addTimeCard();
                             System.out.println("Cartão de ponto lançado!");
                         }
                     }
@@ -90,8 +91,8 @@ public class Main {
                 
                 for(Employees employees : listEmployees){
                     if(employees.getId() == idVendedor){
-                        if(employees.getClass() == Commissioned.class){
-                            ((Commissioned)employees).addSale();
+                        if(employees instanceof Commissioned){
+                            employees.addSale();
                         }
                     }
                 }
@@ -168,7 +169,10 @@ public class Main {
                                         valueComissioned = input.nextDouble();
                                         employees = new Commissioned(aux.getName(), aux.getAdress(), aux.getId(), valueComissioned);
                                     } else {
-                                        employees = new Employees(idChange);
+                                        double salary;
+                                        System.out.println("Salário:");
+                                        salary = input.nextDouble();
+                                        employees = new Assalaried(aux.getName(), aux.getAdress(), aux.getId(), salary);
                                     }
                                     listEmployees.add(employees);
                                     System.out.println("MENSAGEM: Alteração feita.");

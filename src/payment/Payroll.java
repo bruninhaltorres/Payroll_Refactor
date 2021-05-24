@@ -3,7 +3,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.DayOfWeek;
 
-import java.util.Random;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -58,8 +57,6 @@ public class Payroll{
 					System.out.println("\n");
 				}
 			}
-
-
 
 			if(payroll.fridays % 2 == 0){
 				// pay commissioned
