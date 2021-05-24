@@ -84,6 +84,7 @@ public class EmployeeMenu {
         }
         payment.payment_method(employees);
         addEmployee(employees, listEmployees, listSyndicate);
+        input.nextLine();
         return employees;
     }
 }

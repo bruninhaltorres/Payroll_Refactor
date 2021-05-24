@@ -23,22 +23,22 @@ public class Main {
         System.out.println("9 - Agendar pagamento");
         System.out.println("10 - Criar novas agendas");
         System.out.println("0 - Encerrar");
-        int comando = input.nextInt();
-        return comando;
+        int command = input.nextInt();
+        return command;
     }
 
     public static int invalid(Scanner input) {
         System.out.println("Acão inválida! Tente novamente.");
-        int comando = actions(input);
-        return comando;
+        int command = actions(input);
+        return command;
     }
     
     public static void main(String[] args) {
         System.out.println("Esse é o sistema para folha de pagamento.");    
         Scanner input = new Scanner(System.in);
         
-        int comando = actions(input);
-        int control = 0;
+        int command = actions(input);
+        int commandOk = 0;
 
         ArrayList<Syndicate> listSyndicate = new ArrayList<Syndicate>();
         ArrayList<Employees> listEmployees = new ArrayList<Employees>(); 
@@ -49,14 +49,14 @@ public class Main {
         
         Payroll payroll = new Payroll();
 
-        while (comando != 0){
-            if (comando == 1) {
+        while (command != 0){
+            if (command == 1) {
                 System.out.println("Adicionando empregado...");
                 
                 employee = employeeMenu.createEmployee(listEmployees, listSyndicate, payment);
                 System.out.println("Empregado adicionado com sucesso.");
 
-            } else if (comando == 2) {
+            } else if (command == 2) {
                 System.out.println("Qual o identificador do empregado que será removido?");
                 int idRemove = input.nextInt();
 
@@ -75,10 +75,11 @@ public class Main {
                     }
                 }
                 listSyndicate.remove(syndicateRemove);
+
                 employee.printEmployees(listEmployees);
                 System.out.println("Empregado removido!"); 
 
-            } else if (comando == 3) { // adicionando cartão de ponto
+            } else if (command == 3) { // adicionando cartão de ponto
                 System.out.println("Qual seu numero de identificação?");
                 int idTimeCard = input.nextInt();
                 
@@ -91,7 +92,7 @@ public class Main {
                     }
                 }
 
-            } else if (comando == 4) { // cadastrando venda
+            } else if (command == 4) { // cadastrando venda
                 System.out.println("Qual seu numero de identificação?");
                 int idVendedor = input.nextInt();
                 
@@ -104,7 +105,7 @@ public class Main {
                 }
                 System.out.println("Venda cadastrada!");
 
-            } else if (comando == 5) {
+            } else if (command == 5) {
                 System.out.println("Qual seu número de identificação?");
                 int idChange = input.nextInt();
                 for(Syndicate syndicate : listSyndicate){
@@ -116,7 +117,7 @@ public class Main {
                 }
                 System.out.println("Taxa de serviço adicionada!");
 
-            } else if (comando == 6) {
+            } else if (command == 6) {
                 System.out.println("Qual seu número de identificação?");
                 int idChange = input.nextInt();
 
@@ -254,30 +255,27 @@ public class Main {
                         }
                     }
                 }
-            } else if (comando == 7) {
+            } else if (command == 7) {
                 Payroll.payEmployees(listEmployees, payroll);
                 System.out.println("Pagamentos efetuados com sucesso!");
-            } else if (comando == 8) {
+            } else if (command == 8) {
                 //
                 System.out.println("Ação desfeita. (undo)");
                 System.out.println("Ação refeita. (redo)");
-            } else if (comando == 9) {
+            } else if (command == 9) {
                 //
-            } else if (comando == 10) {
+            } else if (command == 10) {
                 //
+            } else if (command == 0) {
+                break;
             } else {
-                if (comando == 0) {
-                    break;
-                } else {
-                    control = 1; // para marcar que o comando já foi pego.
-                    comando = invalid(input);
-                }
+                command = invalid(input);
+                commandOk = 1; // para marcar que o command já foi pego.
             }
-            if (control == 0){ // se ainda não foi pego o proximo, pegue!
-                comando = actions(input);
+            if (commandOk == 0){ // se ainda não foi pego o proximo, pegue!
+                command = actions(input);
             }
-            control = 0;
-            //input.nextLine();
+            commandOk = 0;
         }
         input.close();
     }
