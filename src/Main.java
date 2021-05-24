@@ -2,6 +2,7 @@ package src;
 import src.payment.*;
 import src.employees.*;
 import src.EmployeeMenu;
+import src.strategy.*;
 
 import java.util.Scanner;
 import java.lang.String;
@@ -82,40 +83,50 @@ public class Main {
             } else if (command == 3) { // adicionando cartão de ponto
                 System.out.println("Qual seu numero de identificação?");
                 int idTimeCard = input.nextInt();
-                
+                int isHourly = 0;
                 for(Employees employees : listEmployees){
                     if(employees.getId() == idTimeCard){
                         if(employees instanceof Hourly){
                             employees.addTimeCard();
+                            isHourly = 1;
                             System.out.println("Cartão de ponto lançado!");
                         }
                     }
+                } if (isHourly == 0) {
+                    System.out.println("Você não está cadastrado em Horistas.");
                 }
 
             } else if (command == 4) { // cadastrando venda
                 System.out.println("Qual seu numero de identificação?");
                 int idVendedor = input.nextInt();
-                
+                int isCommisioned = 0;
                 for(Employees employees : listEmployees){
                     if(employees.getId() == idVendedor){
                         if(employees instanceof Commissioned){
                             employees.addSale();
+                            isCommisioned = 1;
+                            System.out.println("Venda cadastrada!");
                         }
                     }
+                } if (isCommisioned == 0) {
+                    System.out.println("Você não está cadastrado em Comissionado.");
                 }
-                System.out.println("Venda cadastrada!");
 
             } else if (command == 5) {
                 System.out.println("Qual seu número de identificação?");
                 int idChange = input.nextInt();
+                int isSyndicate = 0;
                 for(Syndicate syndicate : listSyndicate){
                     if(syndicate.getIdSyndicate() == idChange){
                         System.out.println("Qual a taxa cobrada pelo serviço? (R$)");
                         double feeService = input.nextDouble();
                         syndicate.setFeeService(feeService);
+                        isSyndicate = 1;
+                        System.out.println("Taxa de serviço adicionada!");
                     }
+                } if (isSyndicate == 0) {
+                    System.out.println("Você não está cadastrado no Sindicato");
                 }
-                System.out.println("Taxa de serviço adicionada!");
 
             } else if (command == 6) {
                 System.out.println("Qual seu número de identificação?");
@@ -256,7 +267,14 @@ public class Main {
                     }
                 }
             } else if (command == 7) {
-                Payroll.payEmployees(listEmployees, payroll);
+                boolean testing = true;
+                StrategyHourly strategyHourly = new StrategyHourly(listEmployees);
+                strategyHourly.payroll(testing);
+                StrategyCommisioned strategyCommisioned = new StrategyCommisioned(listEmployees);
+                strategyCommisioned.payroll(testing);
+                StrategyAssalaried strategyAssalaried = new StrategyAssalaried(listEmployees);
+                strategyAssalaried.payroll(testing);
+
                 System.out.println("Pagamentos efetuados com sucesso!");
             } else if (command == 8) {
                 //
