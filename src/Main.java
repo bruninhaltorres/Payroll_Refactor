@@ -267,6 +267,7 @@ public class Main {
                     }
                 }
             } else if (command == 7) {
+                
                 boolean testing = true;
                 StrategyHourly strategyHourly = new StrategyHourly(listEmployees);
                 strategyHourly.payroll(testing);
@@ -274,7 +275,7 @@ public class Main {
                 strategyCommisioned.payroll(testing);
                 StrategyAssalaried strategyAssalaried = new StrategyAssalaried(listEmployees);
                 strategyAssalaried.payroll(testing);
-
+                
                 System.out.println("Pagamentos efetuados com sucesso!");
             } else if (command == 8) {
                 //

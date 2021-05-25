@@ -2,11 +2,13 @@ package src;
 
 import src.employees.*;
 import src.payment.*;
+import src.strategy.*;
 
 import java.util.Scanner;
 import java.lang.String;
 import java.util.Random;
 import java.util.ArrayList;
+
 
 public class EmployeeMenu {
     Scanner input = new Scanner(System.in);
@@ -70,17 +72,20 @@ public class EmployeeMenu {
         Employees employees = null;
 
         if (type == 1) { // horista
-            employees = new Hourly(name, adress, idEmployee); 
+            employees = new Hourly(name, adress, idEmployee);
+            StrategyHourly sh = new StrategyHourly(employees);
         } else if (type == 2) { // comissionado
             double valueComissioned;
             System.out.println("Valor da comissão:");
             valueComissioned = input.nextDouble();
             employees = new Commissioned(name, adress, idEmployee, valueComissioned);
+            StrategyCommisioned sc = new StrategyCommisioned(employees);
         } else {
             double salary;
             System.out.println("Salário:");
             salary = input.nextDouble();
             employees = new Assalaried(name, adress, idEmployee, salary);
+            StrategyAssalaried sa = new StrategyAssalaried(employees);
         }
         payment.payment_method(employees);
         addEmployee(employees, listEmployees, listSyndicate);
