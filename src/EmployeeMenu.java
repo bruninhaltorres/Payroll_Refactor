@@ -56,7 +56,7 @@ public class EmployeeMenu {
         employees.printEmployees(listEmployees);
     }
 
-    public Employees createEmployee(ArrayList<Employees> listEmployees, ArrayList<Syndicate> listSyndicate, Payment payment) {
+    public Employees createEmployee(ArrayList<Employees> listEmployees, ArrayList<Syndicate> listSyndicate, Payment payment, StrategyHourly sH, StrategyCommisioned sC, StrategyAssalaried sA) {
         
         System.out.println("Nome do empregado:");
         String name = input.nextLine();
@@ -73,19 +73,19 @@ public class EmployeeMenu {
 
         if (type == 1) { // horista
             employees = new Hourly(name, adress, idEmployee);
-            StrategyHourly sh = new StrategyHourly(employees);
+            sH.addHourly(employees);
         } else if (type == 2) { // comissionado
             double valueComissioned;
             System.out.println("Valor da comissão:");
             valueComissioned = input.nextDouble();
             employees = new Commissioned(name, adress, idEmployee, valueComissioned);
-            StrategyCommisioned sc = new StrategyCommisioned(employees);
+            sC.addCommisioned(employees);
         } else {
             double salary;
             System.out.println("Salário:");
             salary = input.nextDouble();
             employees = new Assalaried(name, adress, idEmployee, salary);
-            StrategyAssalaried sa = new StrategyAssalaried(employees);
+            sA.addAssalaried(employees);
         }
         payment.payment_method(employees);
         addEmployee(employees, listEmployees, listSyndicate);

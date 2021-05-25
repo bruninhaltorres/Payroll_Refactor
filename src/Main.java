@@ -48,13 +48,15 @@ public class Main {
         Payment payment = new Payment();
         Employees employee = null;
         
-        Payroll payroll = new Payroll();
+        StrategyHourly strategyHourly = new StrategyHourly();
+        StrategyCommisioned strategyCommisioned= new StrategyCommisioned();
+        StrategyAssalaried strategyAssalaried = new StrategyAssalaried();
 
         while (command != 0){
             if (command == 1) {
                 System.out.println("Adicionando empregado...");
                 
-                employee = employeeMenu.createEmployee(listEmployees, listSyndicate, payment);
+                employee = employeeMenu.createEmployee(listEmployees, listSyndicate, payment, strategyHourly, strategyCommisioned, strategyAssalaried);
                 System.out.println("Empregado adicionado com sucesso.");
 
             } else if (command == 2) {
@@ -86,11 +88,11 @@ public class Main {
                 int isHourly = 0;
                 for(Employees employees : listEmployees){
                     if(employees.getId() == idTimeCard){
-                        if(employees instanceof Hourly){
-                            employees.addTimeCard();
-                            isHourly = 1;
-                            System.out.println("Cartão de ponto lançado!");
-                        }
+                        //if(employees instanceof Hourly){
+                        employees.addTimeCard();
+                        isHourly = 1;
+                        System.out.println("Cartão de ponto lançado!");
+                        //}
                     }
                 } if (isHourly == 0) {
                     System.out.println("Você não está cadastrado em Horistas.");
@@ -102,11 +104,11 @@ public class Main {
                 int isCommisioned = 0;
                 for(Employees employees : listEmployees){
                     if(employees.getId() == idVendedor){
-                        if(employees instanceof Commissioned){
-                            employees.addSale();
-                            isCommisioned = 1;
-                            System.out.println("Venda cadastrada!");
-                        }
+                        //if(employees instanceof Commissioned){
+                        employees.addSale();
+                        isCommisioned = 1;
+                        System.out.println("Venda cadastrada!");
+                        //}
                     }
                 } if (isCommisioned == 0) {
                     System.out.println("Você não está cadastrado em Comissionado.");
@@ -132,14 +134,15 @@ public class Main {
                 System.out.println("Qual seu número de identificação?");
                 int idChange = input.nextInt();
 
-                int cadastroFeito = 0;
+                int registeOK = 0;
                 for(Employees employees : listEmployees){
                     if(employees.getId() == idChange){
-                        cadastroFeito = 1;
+                        registeOK = 1;
                     }
                 }
-                if(cadastroFeito == 0) {System.out.println("Você ainda não tem um cadastro."); }
-                else {
+                if(registeOK == 0) {
+                    System.out.println("Você ainda não tem um cadastro."); 
+                } else {
                     System.out.println("O que você deseja alterar?");
                     System.out.println("1 - Nome");
                     System.out.println("2 - Endereço");
@@ -269,14 +272,12 @@ public class Main {
             } else if (command == 7) {
                 
                 boolean testing = true;
-                StrategyHourly strategyHourly = new StrategyHourly(listEmployees);
                 strategyHourly.payroll(testing);
-                StrategyCommisioned strategyCommisioned = new StrategyCommisioned(listEmployees);
                 strategyCommisioned.payroll(testing);
-                StrategyAssalaried strategyAssalaried = new StrategyAssalaried(listEmployees);
                 strategyAssalaried.payroll(testing);
                 
                 System.out.println("Pagamentos efetuados com sucesso!");
+                
             } else if (command == 8) {
                 //
                 System.out.println("Ação desfeita. (undo)");

@@ -1,13 +1,7 @@
 package src.employees;
 
-import java.util.Scanner;
 import java.util.ArrayList;
 import java.lang.String;
-
-import src.payment.CheckHand;
-import src.payment.CheckMail;
-import src.payment.Deposit;
-import src.payment.Payroll;
 
 public abstract class Employees {
     private String name;
