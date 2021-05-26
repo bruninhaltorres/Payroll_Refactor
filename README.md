@@ -37,3 +37,18 @@ pagamento para cada empregado desde a última vez em que este foi pago.
 [Clique aqui](https://github.com/bruninhaltorres/Projeto_De_Software/tree/main/Especifica%C3%A7%C3%B5es) para ver mais sobre o projeto.
 
 ## Code Smells
+### Indecent Exposure
+* Um bom encapsulamento acontece quando os dados, atributos, de uma classe são ocultos e seus serviços, métodos, úteis para as demais classes, são públicos. Classes seguras são bem encapsuladas. Esse bad smell é referente à falta de encapsulamento de classes e isso podia ser visto em partes nas quais haviam a declaração de sub classes de Employees.
+'''
+if (type == 1) {
+    Hourly hourly = new Hourly(employees.getName(), employees.getAdress(), employees.getMethodPayment(), employees.getId());                    
+    listEmployees.add(hourly);
+} else if (type == 2) {
+    double valueComissioned;
+    System.out.println("Valor da comissão:");
+    valueComissioned = input.nextDouble();
+    Commissioned commissioned = new Commissioned(employees.getName(), employees.getAdress(), employees.getMethodPayment(), employees.getId(), valueComissioned);
+    listEmployees.add(commissioned);
+} else {
+    listEmployees.add(employees);
+}'''
