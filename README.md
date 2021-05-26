@@ -36,9 +36,10 @@ pagamento para cada empregado desde a última vez em que este foi pago.
 
 [Clique aqui](https://github.com/bruninhaltorres/Projeto_De_Software/tree/main/Especifica%C3%A7%C3%B5es) para ver mais sobre o projeto.
 
-## Refatoramento
-### Bad Smell: Indecent Exposure
-* Um bom encapsulamento acontece quando os dados, atributos, de uma classe são ocultos e seus serviços, métodos, úteis para as demais classes, são públicos. Classes seguras são bem encapsuladas. Esse bad smell é referente à falta de encapsulamento de classes e isso podia ser visto em partes nas quais haviam a declaração de sub classes de Employees(Horistas, Comissionado e Assalariado).
+## Refatoamento
+**1.**
+#### Bad Smell: Indecent Exposure
+* Um bom encapsulamento acontece quando os dados, atributos, de uma classe são ocultos e seus serviços, métodos, úteis para as demais classes, são públicos. Classes seguras são bem encapsuladas. Esse bad smell é referente à falta de encapsulamento de classes e isso podia ser visto na parte em que era feita a declaração das sub classes de Employees(Horistas, Comissionado e Assalariado).
 ```java
 if (type == 1) {
     Hourly hourly = new Hourly(employees.getName(), employees.getAdress(), employees.getMethodPayment(), employees.getId());                    
@@ -53,4 +54,8 @@ if (type == 1) {
     listEmployees.add(employees);
 }
 ```
+#### Pattern: Encapsulate Classes with Factory
+* 
+### 2. Duplicate Code
+* 
 
