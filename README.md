@@ -56,5 +56,5 @@ if (type == 1) {
 
 ## Refatorando
 ### 1. Encapsulate Classes with Factory
-
+* Visando resolver o primeiro code smell citado, na nova implementação, a classe Employees foi definida como abstract e nela foi colocada as assinaturas de métodos das sub classes, pois, posteriormente, (nessa parte) esses métodos das sub classes eram usados por meio de casting. Sendo assim, pude implementar herança corretamente e seguir usando os métodos usados quando necessário.
 
