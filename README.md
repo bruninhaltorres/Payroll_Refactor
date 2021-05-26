@@ -38,48 +38,10 @@ pagamento para cada empregado desde a última vez em que este foi pago.
 
 ## Code Smells
 ### 1. Indecent Exposure
-* Um bom encapsulamento acontece quando os dados, atributos, de uma classe são ocultos e seus serviços, métodos, úteis para as demais classes, são públicos. Classes seguras são bem encapsuladas. Esse bad smell é referente à falta de encapsulamento de classes e isso podia ser visto (nessa parte)[https://github.com/bruninhaltorres/Payroll/blob/main/Main.java#L80] em que era feita a declaração das sub classes de Employees(Horistas, Comissionado e Assalariado).
+* Um bom encapsulamento acontece quando os dados, atributos, de uma classe são ocultos e seus serviços, métodos, úteis para as demais classes, são públicos. Classes seguras são bem encapsuladas. Esse bad smell é referente à falta de encapsulamento de classes e isso podia ser visto a partir [dessa linha](https://github.com/bruninhaltorres/Payroll/blob/main/Main.java#L80) onde era feita a declaração das sub classes de Employees(Horistas, Comissionado e Assalariado).
 
 ## Refatorando
 ### 1. Encapsulate Classes with Factory
-* Visando resolver o code smell 1(Indecent Exposure), na nova implementação, a classe Employees foi definida como abstract e nela foi colocada as assinaturas de métodos das sub classes, pois, posteriormente, esses métodos das sub classes eram usados por meio de casting:
-```java
-for(int i = 0; i < size; i++) {
-    if(listEmployees.get(i).getId() == idTimeCard) {
-        if(listEmployees.get(i).getClass() == Hourly.class) {
-            ((Hourly)listEmployees.get(i)).addTimeCard(); 
-        }
-    }
-}
-```
-Sendo assim, pude implementar herança corretamente:
-```java
-Employees employees = null;
-if (type == 1) { // horista
-    employees = new Hourly(name, adress, idEmployee);
-    sH.addHourly(employees);
-} else if (type == 2) { // comissionado
-    double valueComissioned;
-    System.out.println("Valor da comissão:");
-    valueComissioned = input.nextDouble();
-    employees = new Commissioned(name, adress, idEmployee, valueComissioned);
-    sC.addCommisioned(employees);
-} else {
-    double salary;
-    System.out.println("Salário:");
-    salary = input.nextDouble();
-    employees = new Assalaried(name, adress, idEmployee, salary);
-    sA.addAssalaried(employees);
-}
-```
- E seguir usando os métodos que antes já eram usados, como por exemplo, `addTimeCard()` da sub classe Hourly.
-```java
-for(Employees employees : listEmployees){
-    if(employees.getId() == idTimeCard){
-        if(employees instanceof Hourly){
-            employees.addTimeCard();
-            isHourly = 1;
-            System.out.println("Cartão de ponto lançado!");
-        }
-    }
-} 
+* Visando resolver o code smell 1(Indecent Exposure), na nova implementação, a classe Employees foi definida como abstract e nela foi colocada as assinaturas de métodos das sub classes, pois, posteriormente, esses métodos das sub classes eram usados por meio de [casting](https://github.com/bruninhaltorres/Payroll/blob/main/Main.java#L163).
+Sendo assim, pude [implementar herança corretamente](https://github.com/bruninhaltorres/Payroll_Refactor/blob/main/src/EmployeeMenu.java#L72).
+E seguir usando os métodos que antes já eram usados, como por exemplo, `addTimeCard()` da sub classe Hourly.
