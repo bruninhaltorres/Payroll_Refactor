@@ -36,11 +36,12 @@ pagamento para cada empregado desde a última vez em que este foi pago.
 
 [Clique aqui](https://github.com/bruninhaltorres/Projeto_De_Software/tree/main/Especifica%C3%A7%C3%B5es) para ver mais sobre o projeto.
 
-## Code Smells
-### 1. Indecent Exposure
-* Um bom encapsulamento acontece quando os dados, atributos, de uma classe são ocultos e seus serviços, métodos, úteis para as demais classes, são públicos. Classes seguras são bem encapsuladas. Esse bad smell é referente à falta de encapsulamento de classes e isso podia ser visto a partir [dessa linha](https://github.com/bruninhaltorres/Payroll/blob/main/Main.java#L80) onde era feita a declaração das sub classes de Employees(Horistas, Comissionado e Assalariado).
-
-## Refatorando
+## Refatoramento
 ### 1. Encapsulate Classes with Factory
-* Visando resolver o code smell 1(Indecent Exposure), na nova implementação, a classe Employees foi definida como abstract e nela foi colocada as assinaturas de métodos das sub classes, pois, posteriormente, esses métodos das sub classes eram usados por meio de [casting](https://github.com/bruninhaltorres/Payroll/blob/main/Main.java#L163).
+Um bom encapsulamento acontece quando os dados, atributos, de uma classe são ocultos e seus serviços, métodos, úteis para as demais classes, são públicos. Classes seguras são bem encapsuladas. **Indecent Exposure** é o nome referente à falta de encapsulamento de classes e isso podia ser visto na implementação anterior a partir [dessa linha](https://github.com/bruninhaltorres/Payroll/blob/main/Main.java#L80) onde era feita a declaração das sub classes de Employees(Horistas, Comissionado e Assalariado).
+Visando resolver esse problema, na nova implementação, a classe Employees foi definida como abstract e nela foi colocada as assinaturas de métodos das sub classes, pois, posteriormente, esses métodos das sub classes eram usados por meio de [casting](https://github.com/bruninhaltorres/Payroll/blob/main/Main.java#L163).
 Sendo assim, pude [implementar herança corretamente](https://github.com/bruninhaltorres/Payroll_Refactor/blob/main/src/EmployeeMenu.java#L72) e continuar usando os métodos que antes já eram usados, como por exemplo, `addTimeCard()` da sub classe Hourly.
+
+### 2. Strategy
+Esse padrão permite que você extraia o comportamento variante para uma hierarquia de classe separada e combine as classes originais em uma, reduzindo o código duplicado. Ou seja, quando você tem muitas classes parecidas que somente diferem na forma que elas executam algum comportamento é o momento de aplicar o padrão Strategy. Então, pode-se afirmar que, na implementação anterior, tem uma grande duplicação de código quando é [rodada a folha de pagamento](https://github.com/bruninhaltorres/Payroll/blob/6dcf7d4f604309489cd848d35444e7d3dae424ec/src/payment/Payroll.java#L29), pois a ação de pagar os empregados é a mesma para todas as classes, e o que muda é apenas a *estratégia* de quando será pago.
+Visto isso, foi criada uma [interface](https://github.com/bruninhaltorres/Payroll_Refactor/blob/main/src/strategy/StrategyPayment.java) que é implementada em cada classe do Strategy e na hora de [rodar a folha de pagamento](https://github.com/bruninhaltorres/Payroll_Refactor/blob/main/src/Main.java#L275) todas as sub classes (Horista, Comissionado e Assalariado) rodam o método `payroll()` declarado na interface, porém só é pago quem satisfaz as condições de pagamento.
