@@ -56,5 +56,42 @@ if (type == 1) {
 
 ## Refatorando
 ### 1. Encapsulate Classes with Factory
-* Visando resolver o primeiro code smell citado, na nova implementação, a classe Employees foi definida como abstract e nela foi colocada as assinaturas de métodos das sub classes, pois, posteriormente, (nessa parte) esses métodos das sub classes eram usados por meio de casting. Sendo assim, pude implementar herança corretamente e seguir usando os métodos usados quando necessário.
-
+* Visando resolver o code smell 1(Indecent Exposure), na nova implementação, a classe Employees foi definida como abstract e nela foi colocada as assinaturas de métodos das sub classes, pois, posteriormente, esses métodos das sub classes eram usados por meio de casting:
+```java
+for(int i = 0; i < size; i++) {
+    if(listEmployees.get(i).getId() == idTimeCard) {
+        if(listEmployees.get(i).getClass() == Hourly.class) {
+            ((Hourly)listEmployees.get(i)).addTimeCard(); 
+        }
+    }
+}
+```
+Sendo assim, pude implementar herança corretamente e seguir usando os métodos que antes já eram usados:
+```java
+if (type == 1) { // horista
+    employees = new Hourly(name, adress, idEmployee);
+    sH.addHourly(employees);
+} else if (type == 2) { // comissionado
+    double valueComissioned;
+    System.out.println("Valor da comissão:");
+    valueComissioned = input.nextDouble();
+    employees = new Commissioned(name, adress, idEmployee, valueComissioned);
+    sC.addCommisioned(employees);
+} else {
+    double salary;
+    System.out.println("Salário:");
+    salary = input.nextDouble();
+    employees = new Assalaried(name, adress, idEmployee, salary);
+    sA.addAssalaried(employees);
+}
+```
+```java
+for(Employees employees : listEmployees){
+    if(employees.getId() == idTimeCard){
+        if(employees instanceof Hourly){
+            employees.addTimeCard();
+            isHourly = 1;
+            System.out.println("Cartão de ponto lançado!");
+        }
+    }
+} 
