@@ -43,5 +43,4 @@ pagamento para cada empregado desde a última vez em que este foi pago.
 ## Refatorando
 ### 1. Encapsulate Classes with Factory
 * Visando resolver o code smell 1(Indecent Exposure), na nova implementação, a classe Employees foi definida como abstract e nela foi colocada as assinaturas de métodos das sub classes, pois, posteriormente, esses métodos das sub classes eram usados por meio de [casting](https://github.com/bruninhaltorres/Payroll/blob/main/Main.java#L163).
-Sendo assim, pude [implementar herança corretamente](https://github.com/bruninhaltorres/Payroll_Refactor/blob/main/src/EmployeeMenu.java#L72).
-E seguir usando os métodos que antes já eram usados, como por exemplo, `addTimeCard()` da sub classe Hourly.
+Sendo assim, pude [implementar herança corretamente](https://github.com/bruninhaltorres/Payroll_Refactor/blob/main/src/EmployeeMenu.java#L72) e continuar usando os métodos que antes já eram usados, como por exemplo, `addTimeCard()` da sub classe Hourly.
