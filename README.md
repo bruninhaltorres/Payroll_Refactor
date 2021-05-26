@@ -38,21 +38,7 @@ pagamento para cada empregado desde a última vez em que este foi pago.
 
 ## Code Smells
 ### 1. Indecent Exposure
-* Um bom encapsulamento acontece quando os dados, atributos, de uma classe são ocultos e seus serviços, métodos, úteis para as demais classes, são públicos. Classes seguras são bem encapsuladas. Esse bad smell é referente à falta de encapsulamento de classes e isso podia ser visto na parte em que era feita a declaração das sub classes de Employees(Horistas, Comissionado e Assalariado).
-```java
-if (type == 1) {
-    Hourly hourly = new Hourly(employees.getName(), employees.getAdress(), employees.getMethodPayment(), employees.getId());                    
-    listEmployees.add(hourly);
-} else if (type == 2) {
-    double valueComissioned;
-    System.out.println("Valor da comissão:");
-    valueComissioned = input.nextDouble();
-    Commissioned commissioned = new Commissioned(employees.getName(), employees.getAdress(), employees.getMethodPayment(), employees.getId(), valueComissioned);
-    listEmployees.add(commissioned);
-} else {
-    listEmployees.add(employees);
-}
-```
+* Um bom encapsulamento acontece quando os dados, atributos, de uma classe são ocultos e seus serviços, métodos, úteis para as demais classes, são públicos. Classes seguras são bem encapsuladas. Esse bad smell é referente à falta de encapsulamento de classes e isso podia ser visto (nessa parte)[https://github.com/bruninhaltorres/Payroll/blob/main/Main.java#L80] em que era feita a declaração das sub classes de Employees(Horistas, Comissionado e Assalariado).
 
 ## Refatorando
 ### 1. Encapsulate Classes with Factory
@@ -66,7 +52,7 @@ for(int i = 0; i < size; i++) {
     }
 }
 ```
-Sendo assim, pude implementar herança corretamente e seguir usando os métodos que antes já eram usados:
+Sendo assim, pude implementar herança corretamente:
 ```java
 Employees employees = null;
 if (type == 1) { // horista
@@ -86,7 +72,7 @@ if (type == 1) { // horista
     sA.addAssalaried(employees);
 }
 ```
-Usando metodo `addTimeCard()` da sub classe.
+ E seguir usando os métodos que antes já eram usados, como por exemplo, `addTimeCard()` da sub classe Hourly.
 ```java
 for(Employees employees : listEmployees){
     if(employees.getId() == idTimeCard){
