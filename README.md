@@ -68,6 +68,7 @@ for(int i = 0; i < size; i++) {
 ```
 Sendo assim, pude implementar herança corretamente e seguir usando os métodos que antes já eram usados:
 ```java
+Employees employees = null;
 if (type == 1) { // horista
     employees = new Hourly(name, adress, idEmployee);
     sH.addHourly(employees);
@@ -85,6 +86,7 @@ if (type == 1) { // horista
     sA.addAssalaried(employees);
 }
 ```
+Usando metodo `addTimeCard()` da sub classe.
 ```java
 for(Employees employees : listEmployees){
     if(employees.getId() == idTimeCard){
